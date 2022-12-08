@@ -21,10 +21,13 @@ public class Util {
             connection.setAutoCommit(false);
             Class.forName(DRIVER);
         } catch (SQLException | ClassNotFoundException e) {
+
             e.printStackTrace();
         }
         return connection;
     }
+
+
 }
 
 
