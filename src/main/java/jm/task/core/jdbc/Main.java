@@ -4,8 +4,10 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
+
 public class Main {
     public static void main(MysqlxDatatypes.Scalar.String[] args) {
+
 
         UserService userService = new UserServiceImpl();
 
@@ -26,4 +28,5 @@ public class Main {
         userService.cleanUsersTable();
 
     }
+
 }
