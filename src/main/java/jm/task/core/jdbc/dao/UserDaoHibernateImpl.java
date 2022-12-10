@@ -24,7 +24,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery("CREATE TABLE User(id INT AUTO_INCREMENT PRIMARY KEY,name CHAR(45),lastName CHAR(45), age INT)").executeUpdate();
             transaction.commit();
         } catch (Exception e) {
-         //   transaction.rollback();
+         ///   transaction.rollback();
             e.printStackTrace();
         }
     }
