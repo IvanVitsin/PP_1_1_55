@@ -81,8 +81,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public List<User> getAllUsers() {
         List users = new ArrayList<>();
         try (Session session = sf.openSession()) {
-            users = session.createQuery("FROM User").getResultList();
-            System.out.println(users);
+            users = session.createQuery("from User").getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,7 +93,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try (Session session = sf.openSession()) {
             transaction = session.beginTransaction();
-            session.createSQLQuery("TRUNCATE TABLE users").executeUpdate();
+            session.createQuery("delete User").executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
