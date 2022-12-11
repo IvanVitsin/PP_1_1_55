@@ -21,10 +21,12 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try(Session session = sf.openSession()){
             transaction = session.beginTransaction();
-            session.createSQLQuery("CREATE TABLE User(id INT AUTO_INCREMENT PRIMARY KEY,name CHAR(45),lastName CHAR(45), age INT)").executeUpdate();
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS usser(id INT AUTO_INCREMENT PRIMARY KEY,name CHAR(45),lastName CHAR(45), age INT)").executeUpdate();
             transaction.commit();
         } catch (Exception e) {
-         ///   transaction.rollback();
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
     }
@@ -34,10 +36,12 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try(Session session = sf.openSession()){
             transaction = session.beginTransaction();
-            session.createSQLQuery("DROP TABLE IF EXISTS users");
+            session.createSQLQuery("DROP TABLE IF EXISTS `preproj114`.`users`");
             transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
 
@@ -51,6 +55,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(new User(name, lastName, age));
             transaction.commit();
         } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
     }
@@ -60,7 +67,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try (Session session = sf.openSession()) {
             transaction = session.beginTransaction();
-            session.delete(session.get(User.class,id));
+            session.delete(session.get(User.class, id));
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
